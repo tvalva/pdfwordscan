@@ -25,8 +25,9 @@ public class PDFScanRun
 
         inFile = new File(args[0]);                
         System.out.println( "\nAdobe PDF Scanner target file: "+args[0]);
-        PdfTextExtractor extractor = new PdfTextExtractor(inFile);
-
+        PdfTextExtractor extractor = new PdfTextExtractor(inFile);  
+             
+        //use the adobe library functions to extract text from the pdf
         try 
         {
             extractor.extractText();
@@ -55,20 +56,19 @@ public class PDFScanRun
         }//end for
        
         //or count a word by finding it's index the number of times it appears
-        // refactor to a separate function WordCounter( )
+        // refactor to a separate function WordCounter();
         int count = 0;
         int index = 0;
-        String target = "Financial";
+        String target = "financ"; //try using a word stem, 'financ' can score for 'finance', 'financial', 'financially', etc.
+        
         while ((index = extractor.pdfWords.indexOf(target, index)) != -1) 
         {
             count++;
             index += target.length(); // Move past the last match
         }//end while
 
-        System.out.println("\nWord count \'Financial\': "+count);
+        System.out.println("\nWord count with \'Financ\' stem: "+count);
 
     }//end main
    
-}/** end PDFScanRun */
-
-  
+}/** end PDFScanRun */  
